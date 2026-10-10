@@ -8,7 +8,7 @@ from json import dumps
 
 def main():
     path = Path.cwd() / "audio"
-    files = tuple(file.name for file in path.glob("*.m4a"))
+    files = sorted(file.name for file in path.glob("*.m4a"))
     content = dumps(files, indent=4) + "\n"
     Path("playlist.json").write_text(content, encoding="utf-8")
 
