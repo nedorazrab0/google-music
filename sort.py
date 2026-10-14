@@ -8,10 +8,8 @@ from pathlib import Path
 def main() -> None:
     path = Path("download-list.csv")
     with path.open("r", encoding="utf-8") as file:
-        header, *lines = file.readlines()
-    lines.sort()
+        lines = sorted(file.readlines())
     with path.open("w", encoding="utf-8") as file:
-        file.write(header)
         file.writelines(lines)
 
 
