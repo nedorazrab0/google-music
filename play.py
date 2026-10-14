@@ -7,7 +7,6 @@ from random import choice
 from pathlib import Path
 from shlex import join
 from time import sleep
-from json import loads
 
 PLAYER_CMD = "termux-media-player"
 STOP_CMD = [PLAYER_CMD, "stop"]
@@ -31,13 +30,11 @@ def notify(text: str) -> None:
 
 def main() -> None:
     path = Path.home() / "google-music"
-    playlist = path / "playlist.json"
-    songs = loads(playlist.read_text())
+    songs = tuple(path.glob("*.m4a"))
     notify("Playing the music")
     while True:
         if is_ready():
-            song = path / "audio" / choice(songs)
-            run([PLAYER_CMD, "play", song], check=True)
+            run([PLAYER_CMD, "play", choice(songs)], check=True)
             sleep(60)
         sleep(5)
 
