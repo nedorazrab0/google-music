@@ -1,6 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/env bash
 # SPDX-License-Identifier: 0BSD
 # Download the music
+set -e
 
 DOWNLOAD_DIR='./audio'
 # Reduce the ear fatigue
@@ -22,12 +23,12 @@ download() {
 
     local source_volume
     source_volume="$(ffmpeg -hide_banner -i ${temp_file} \
-        -af 'ebur128=framelog=quiet:peak=true' -f null - 2>&1 \
+        -af 'ebur128=framelog=quiet' -f null - 2>&1 \
         | awk '/I: .*\..* LUFS$/ {print $2}')"
     local target_volume='-32'
     local volume_adjustment
     volume_adjustment=$(awk \
-        "BEGIN {print -(${source_volume} + ${target_volume})}")
+        "BEGIN {print -(${source_volume} - ${target_volume})}")
 
     local filter="${FILTER},volume=${volume_adjustment}dB"
     ffmpeg -v 24 -stats -y -i "${temp_file}" -vn -c:a aac -af "${filter}" \
@@ -38,7 +39,7 @@ main() {
     [[ -n "${1}" ]] && yt-dlp --update-to nightly
     mkdir -p -- "${DOWNLOAD_DIR}"
     local list
-    list="$(cat ./download-list.csv)"
+    list="$(cat ./list.csv)"
     local song
     for song in ${list}; do
         download "${song}"
