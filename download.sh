@@ -23,7 +23,7 @@ download() {
 
     local source_volume
     source_volume="$(ffmpeg -hide_banner -i ${temp_file} \
-        -af 'ebur128=framelog=quiet' -f null - 2>&1 \
+        -af 'ebur128=framelog=quiet:gauge=shortterm' -f null - 2>&1 \
         | awk '/I: .*\..* LUFS$/ {print $2}')"
     local target_volume='-32'
     local volume_adjustment
