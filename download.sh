@@ -29,7 +29,7 @@ download() {
 
     local filter="${FILTER},volume=${volume_adjustment}dB"
     ffmpeg -v 24 -stats -y -i "${temp_file}" -vn -c:a aac -b:a 112k \
-        -af "${filter}" -ar 44100 -- "${output_file}"
+        -af "${filter}" -- "${output_file}"
 }
 
 main() {
