@@ -23,9 +23,11 @@ download() {
     local source_volume
     source_volume="$(ffmpeg -hide_banner -i ${temp_file} \
         -af 'ebur128=framelog=quiet:peak=true' -f null - 2>&1 \
-        | awk '/I: .* LUFS$/ {print $2}')"
+        | awk '/I: .*\..* LUFS$/ {print $2}')"
+    local target_volume='-32'
     local volume_adjustment
-    volume_adjustment=$(awk "BEGIN {print -(${source_volume} + 32)}")
+    volume_adjustment=$(awk \
+        "BEGIN {print -(${source_volume} + ${target_volume})}")
 
     local filter="${FILTER},volume=${volume_adjustment}dB"
     ffmpeg -v 24 -stats -y -i "${temp_file}" -vn -c:a aac -b:a 112k \
