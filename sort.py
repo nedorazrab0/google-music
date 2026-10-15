@@ -4,7 +4,7 @@
 
 
 def main() -> None:
-    path = "download-list.csv"
+    path = "list.csv"
     with open(path, mode="r", encoding="utf-8", newline="\n") as file:
         lines = sorted(file.readlines())
     with open(path, mode="w", encoding="utf-8", newline="\n") as file:
