@@ -30,8 +30,8 @@ download() {
         "BEGIN {print -(${source_volume} + ${target_volume})}")
 
     local filter="${FILTER},volume=${volume_adjustment}dB"
-    ffmpeg -v 24 -stats -y -i "${temp_file}" -vn -c:a aac -b:a 112k \
-        -af "${filter}" -- "${output_file}"
+    ffmpeg -v 24 -stats -y -i "${temp_file}" -vn -c:a aac -af "${filter}" \
+        -- "${output_file}"
 }
 
 main() {
