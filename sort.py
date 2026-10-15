@@ -2,14 +2,12 @@
 # SPDX-License-Identifier: 0BSD
 """Sort the download list."""
 
-from pathlib import Path
-
 
 def main() -> None:
-    path = Path("download-list.csv")
-    with path.open("r", encoding="utf-8") as file:
+    path = "download-list.csv"
+    with open(path, mode="r", encoding="utf-8", newline="\n") as file:
         lines = sorted(file.readlines())
-    with path.open("w", encoding="utf-8") as file:
+    with open(path, mode="w", encoding="utf-8", newline="\n") as file:
         file.writelines(lines)
 
 
