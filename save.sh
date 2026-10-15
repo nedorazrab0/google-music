@@ -4,9 +4,7 @@
 set -e
 
 main() {
-    local archive='../google-music.zip'
-    [[ -f "${archive}" ]] && rm -f "${archive}"
-    zip -9r "${archive}" -- .
+    zip -FS -9r ../google-music.zip -- ../google-music-main
 }
 
 main
