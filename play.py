@@ -29,7 +29,7 @@ def notify(text: str) -> None:
 
 
 def main() -> None:
-    path = Path.home() / "google-music" / "audio"
+    path = Path.home() / "google-music-main" / "audio"
     songs = tuple(path.glob("*.m4a"))
     notify("Playing the music")
     while True:
