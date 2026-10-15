@@ -5,11 +5,9 @@
 from subprocess import check_output, run
 from random import choice
 from pathlib import Path
-from shlex import join
 from time import sleep
 
 PLAYER_CMD = "termux-media-player"
-STOP_CMD = [PLAYER_CMD, "stop"]
 
 
 def is_ready() -> bool:
@@ -17,21 +15,9 @@ def is_ready() -> bool:
     return output == "No track currently!\n"
 
 
-def notify(text: str) -> None:
-    run(["termux-notification-remove", text])
-    cmd = [
-        "termux-notification",
-        "-i", text,
-        "-t", text,
-        "--on-delete", join(STOP_CMD)
-    ]
-    run(cmd)
-
-
 def main() -> None:
     path = Path.home() / "google-music-main" / "audio"
     songs = tuple(path.glob("*.m4a"))
-    notify("Playing the music")
     while True:
         if is_ready():
             run([PLAYER_CMD, "play", choice(songs)], check=True)
