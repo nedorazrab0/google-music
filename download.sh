@@ -5,7 +5,7 @@
 DOWNLOAD_DIR='./audio'
 # Reduce the ear fatigue
 FILTER='virtualbass,pan=stereo|FL=FL+LFE|FR=FR+LFE,equalizer=f=3500:t=h:w=3000'
-FILTER="${FILTER}:g=-10,highpass=f=80,crossfeed=range=1:strength=0.3"
+FILTER+=":g=-10,highpass=f=80,crossfeed=range=1:strength=0.3"
 
 download() {
     local file_name="${1/,*}"
