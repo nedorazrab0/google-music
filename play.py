@@ -8,7 +8,7 @@ from pathlib import Path
 from time import sleep
 
 PLAYER_CMD = "termux-media-player"
-STOP_CMD = [PLAYER_CMD, "stop"]
+
 
 def is_ready() -> bool:
     output = check_output([PLAYER_CMD, "info"], text=True)
@@ -29,4 +29,4 @@ if __name__ == "__main__":
     try:
         main()
     finally:
-        run(STOP_CMD)
+        run([PLAYER_CMD, "stop"])
