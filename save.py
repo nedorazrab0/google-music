@@ -14,5 +14,6 @@ def main() -> None:
         base_dir=Path.cwd().name
     )
 
+
 if __name__ == "__main__":
     main()
